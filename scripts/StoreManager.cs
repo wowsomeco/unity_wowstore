@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Purchasing;
 
 namespace Wowsome {
   namespace Monetization {
-    public class StoreManager : MonoBehaviour, IStoreListener {
+    public class StoreManager : MonoBehaviour /*, IStoreListener */ {
+      /*
       #region Vars
       [Serializable]
       public struct StoreProductData {
@@ -167,6 +167,7 @@ namespace Wowsome {
         OnPurchaseFailEv?.Invoke(failureReason);
       }
       #endregion
+      */
     }
   }
 }
