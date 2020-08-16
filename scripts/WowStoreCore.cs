@@ -1,15 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Wowsome {
   [Serializable]
   public enum ProductType {
     NonConsumable,
     Consumable,
-    Subscription
   }
 
   [Serializable]
-  public struct Product {
+  public class Product {
+    /// <summary>
+    /// Product SKU
+    /// </summary>
     public string Id;
     public ProductType Type;
 
@@ -18,37 +21,44 @@ namespace Wowsome {
       Type = theType;
     }
 
-    public Product(string theId) : this(theId, ProductType.Consumable) { }
+    public Product(string theId) : this(theId, ProductType.NonConsumable) { }
   }
 
-  public enum PurchasingStatus {
-    Purchasing, NotFoundId, NotInitialized
+  [Serializable]
+  public class StoreProduct {
+    public string itemType;
+    public string sku;
+    public string title;
+    public string description;
+    public string price;
   }
 
-  public enum RestorePurchaseStatus {
-    Start, Failed, Continue, Success, UnsupportedPlatform
+  [Serializable]
+  public class StoreReceipt {
+    public string sku;
+    public string itemType;
   }
 
-  public enum PurchaseFailureReason {
-    Failed, Cancelled
+  [Serializable]
+  public class AvailableProduct {
+    public List<StoreProduct> products;
   }
 
-  //   public delegate void InitFailEv(InitializationFailureReason reason);
-  public delegate void PurchaseSuccessEv(string purchaseId, Product prod);
-  public delegate void PurchaseFailureEv(PurchaseFailureReason reason);
-  public delegate void PurchasingEv(PurchasingStatus status);
-  public delegate void RestoreEv(RestorePurchaseStatus status);
+  [Serializable]
+  public class PurchaseHistory {
+    public List<StoreReceipt> purchased;
+  }
+
+  public delegate void InitFailEv(string error);
+  public delegate void InitSuccessEv(AvailableProduct products);
+  public delegate void PurchaseSuccessEv(StoreReceipt purchase);
+  public delegate void PurchaseFailureEv(string error);
+  public delegate void PurchaseRestoredEv(PurchaseHistory purchased);
+  public delegate void RestoreFailedEv(string error);
 
   public interface IStoreController {
-    void InitStore();
-    // void mapSku(string sku, string storeName, string storeSku);
-    // void unbindService();
-    // bool areSubscriptionsSupported();
-    // void queryInventory();
-    // void queryInventory(string[] inAppSkus);
-    // void purchaseProduct(string sku, string developerPayload = "");
-    // void purchaseSubscription(string sku, string developerPayload = "");
-    // void consumeProduct(Purchase purchase);
-    // void restoreTransactions();
+    void InitStore(List<Product> products);
+    void RestorePurchase();
+    void MakePurchase(string productId);
   }
 }
