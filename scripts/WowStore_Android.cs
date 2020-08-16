@@ -21,7 +21,7 @@ namespace Wowsome {
     #region IStoreController
     public void InitStore(List<Product> products) {
       m_androidHelper.CallMethod("initStore", "google");
-      m_androidHelper.CallMethod("requestProducts", products.Map(x => x.Id).ToArray());
+      m_androidHelper.CallMethod("requestProducts", products.Map(x => x.Sku).ToArray());
     }
 
     public void MakePurchase(string productId) {

@@ -2,28 +2,24 @@
 using System.Collections.Generic;
 
 namespace Wowsome {
-  [Serializable]
-  public enum ProductType {
-    NonConsumable,
-    Consumable,
-  }
-
+  /// <summary>
+  /// The Store Product that needs to be assigned on Unity side.
+  /// </summary>
   [Serializable]
   public class Product {
     /// <summary>
-    /// Product SKU
+    /// Product SKU / Id
     /// </summary>
-    public string Id;
-    public ProductType Type;
+    public string Sku;
 
-    public Product(string theId, ProductType theType) {
-      Id = theId;
-      Type = theType;
+    public Product(string sku) {
+      Sku = sku;
     }
-
-    public Product(string theId) : this(theId, ProductType.NonConsumable) { }
   }
 
+  /// <summary>
+  /// The model of the store that gets returned by each of the available platforms (ios, android, amazon, etc.) 
+  /// </summary>
   [Serializable]
   public class StoreProduct {
     public string itemType;

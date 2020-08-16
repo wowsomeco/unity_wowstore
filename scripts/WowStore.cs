@@ -48,17 +48,19 @@ namespace Wowsome {
       OnPurchaseSuccessEv?.Invoke(r);
     }
 
+    void OnPurchaseFailed(string message) {
+      OnPurchaseFailEv?.Invoke(message);
+    }
+
+    #region Restore Purchase
     void OnPurchaseRestored(string json) {
       PurchaseHistory h = JsonUtility.FromJson<PurchaseHistory>(json);
       OnPurchaseRestoredEv?.Invoke(h);
     }
 
-    void OnPurchaseFailed(string message) {
-      OnPurchaseFailEv?.Invoke(message);
-    }
-
     void OnRestoreFailed(string error) {
       OnRestoreFailedEv?.Invoke(error);
     }
+    #endregion
   }
 }

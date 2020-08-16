@@ -16,7 +16,7 @@ namespace Wowsome {
     #region IStoreController
     public void InitStore(List<Product> products) {
 #if UNITY_IOS
-      AppStore_requestProducts(products.Map(x => x.Id).ToArray(), products.Count);
+      AppStore_requestProducts(products.Map(x => x.Sku).ToArray(), products.Count);
 #endif
     }
 
