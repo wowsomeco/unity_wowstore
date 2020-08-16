@@ -7,6 +7,7 @@ using UnityEditor.iOS.Xcode;
 namespace Wowsome {
   /// <summary>
   /// For ios, it adds the StoreKit.framework when building
+  /// For android, nothing for now
   /// </summary>
   public class WowStorePostBuildProcessor : MonoBehaviour {
     [PostProcessBuild]
@@ -23,7 +24,6 @@ namespace Wowsome {
 #endif
         string guid = project.TargetGuidByName(targetId);
         project.AddFrameworkToProject(guid, "StoreKit.framework", false);
-
         project.WriteToFile(pbxFilename);
       }
     }

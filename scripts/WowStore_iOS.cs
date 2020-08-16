@@ -1,36 +1,31 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace Wowsome {
-  public class WowStore_iOS : IStoreController {
-#if UNITY_IOS
-    [DllImport("__Internal")]
-    private static extern void AppStore_requestProducts(string[] skus, int skusNumber);
+  namespace Store {
+    public class WowStore_iOS : IStoreController {
+      [DllImport("__Internal")]
+      private static extern void AppStore_requestProducts(string[] skus, int skusNumber);
 
-    [DllImport("__Internal")]
-    private static extern void AppStore_startPurchase(string sku);
+      [DllImport("__Internal")]
+      private static extern void AppStore_startPurchase(string sku);
 
-    [DllImport("__Internal")]
-    private static extern void AppStore_restorePurchases();    
-#endif
+      [DllImport("__Internal")]
+      private static extern void AppStore_restorePurchases();
 
-    #region IStoreController
-    public void InitStore(List<Product> products) {
-#if UNITY_IOS
-      AppStore_requestProducts(products.Map(x => x.Sku).ToArray(), products.Count);
-#endif
+      #region IStoreController
+      public void InitStore(StoreProvider provider, List<Product> products) {
+        AppStore_requestProducts(products.Map(x => x.Sku).ToArray(), products.Count);
+      }
+
+      public void MakePurchase(string productId) {
+        AppStore_startPurchase(productId);
+      }
+
+      public void RestorePurchase() {
+        AppStore_restorePurchases();
+      }
+      #endregion
     }
-
-    public void MakePurchase(string productId) {
-#if UNITY_IOS
-      AppStore_startPurchase(productId);
-#endif
-    }
-
-    public void RestorePurchase() {
-#if UNITY_IOS
-      AppStore_restorePurchases();
-#endif
-    }
-    #endregion
   }
 }
