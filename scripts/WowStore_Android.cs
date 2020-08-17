@@ -5,32 +5,27 @@ namespace Wowsome {
   namespace Store {
     public class WowStore_Android : IStoreController {
       public class AndroidHelper {
-#if !UNITY_EDITOR
         AndroidJavaClass m_pluginClass = null;
-#endif
 
         public AndroidHelper() {
-#if !UNITY_EDITOR
-          AndroidJavaClass playerClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-          AndroidJavaClass m_pluginClass = new AndroidJavaClass("wowsome.co.purchasing");
-#endif
+          m_pluginClass = new AndroidJavaClass("wowsome.co.purchasing.WowPurchasing");
         }
 
         public void CallMethod(string methodName, params object[] args) {
-#if !UNITY_EDITOR
           m_pluginClass.CallStatic(methodName, args);
-#endif
         }
       }
 
-      AndroidHelper m_androidHelper = new AndroidHelper();
+      AndroidHelper m_androidHelper = null;
 
       #region IStoreController
       public void InitStore(StoreProvider provider, List<Product> products) {
         // for now it's either google or amazon
-        // refactor this later accordingly should there be more impl for another stores e.g. samsung, etc.
+        // refactor this later accordingly should there be more impl for another stores e.g. samsung, etc.        
+        m_androidHelper = new AndroidHelper();
         m_androidHelper.CallMethod("initStore", provider == StoreProvider.Google ? "google" : "amazon");
-        m_androidHelper.CallMethod("requestProducts", products.Map(x => x.Sku).ToArray());
+        string[] prodArray = products.Map(x => x.Sku).ToArray();
+        m_androidHelper.CallMethod("requestProducts", (object)prodArray);
       }
 
       public void MakePurchase(string productId) {
