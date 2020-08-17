@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-
+﻿using System.IO;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
@@ -9,7 +8,7 @@ namespace Wowsome {
   /// For ios, it adds the StoreKit.framework when building
   /// For android, nothing for now
   /// </summary>
-  public class WowStorePostBuildProcessor : MonoBehaviour {
+  public class WowStorePostBuildProcessor {
     [PostProcessBuild]
     public static void OnPostprocessBuild(BuildTarget target, string buildPath) {
       if (target == BuildTarget.iOS) {
@@ -22,9 +21,9 @@ namespace Wowsome {
 #else
         string targetId = project.TargetGuidByName(PBXProject.GetUnityTargetName());
 #endif
-        string guid = project.TargetGuidByName(targetId);
-        project.AddFrameworkToProject(guid, "StoreKit.framework", false);
-        project.WriteToFile(pbxFilename);
+        project.AddFrameworkToProject(targetId, "StoreKit.framework", false);
+
+        File.WriteAllText(pbxFilename, project.WriteToString());
       }
     }
   }
