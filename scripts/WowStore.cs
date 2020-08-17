@@ -13,6 +13,8 @@ namespace Wowsome {
     /// via UnitySendMessage()
     /// </summary>
     public class WowStore : MonoBehaviour {
+      const string GameobjectName = "WowStore";
+
 #if UNITY_ANDROID
       [Tooltip("Google = Google Play Store, Amazon = Amazon Store")]
       public StoreProvider Provider;
@@ -30,6 +32,9 @@ namespace Wowsome {
       #endregion
 
       public void InitStore(List<Product> prods) {
+        // make sure the name is WowStore.
+        gameObject.name = GameobjectName;
+
 #if UNITY_ANDROID
         m_controller = new WowStore_Android();
         m_controller.InitStore(Provider, prods);

@@ -17,19 +17,19 @@ namespace Wowsome {
 
       #region IStoreController
       public void InitStore(StoreProvider provider, List<Product> products) {
-#if UNITY_IOS
+#if UNITY_IOS && !UNITY_EDITOR
         AppStore_requestProducts(products.Map(x => x.Sku).ToArray(), products.Count);
 #endif
       }
 
       public void MakePurchase(string productId) {
-#if UNITY_IOS
+#if UNITY_IOS && !UNITY_EDITOR
         AppStore_startPurchase(productId);
 #endif
       }
 
       public void RestorePurchase() {
-#if UNITY_IOS
+#if UNITY_IOS && !UNITY_EDITOR
         AppStore_restorePurchases();
 #endif
       }
