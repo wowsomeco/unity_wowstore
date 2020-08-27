@@ -207,8 +207,10 @@ NSMutableDictionary* m_productMap;
                 // send the purchase history when paymentQueueRestoreCompletedTransactionsFinished get called.
                 break;
             case SKPaymentTransactionStatePurchased:
-                UnitySendMessage(EventHandler, PurchaseSucceededEv, MakeStringCopy([[self toStoreReceiptString:transaction] UTF8String]));
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                if (transaction) {
+                    UnitySendMessage(EventHandler, PurchaseSucceededEv, MakeStringCopy([[self toStoreReceiptString:transaction] UTF8String]));
+                    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                }                
                 break;
         }
     }
