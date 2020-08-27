@@ -250,7 +250,7 @@ NSMutableDictionary* m_productMap;
 {
     NSDictionary *receipt = [NSDictionary dictionaryWithObjectsAndKeys:
                                      transaction.payment.productIdentifier, @"sku",
-                                     "", @"itemType",
+                                     @"product", @"itemType",
                                      nil];
     
     return receipt;
