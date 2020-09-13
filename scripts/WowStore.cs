@@ -53,6 +53,7 @@ namespace Wowsome {
       }
 
       void OnBillingSupported(string json) {
+        Debug.Log("WOWSTORE ON BILLING SUPPORTED : " + json);
         AvailableProduct prods = JsonUtility.FromJson<AvailableProduct>(json);
         OnInitSuccessEv?.Invoke(prods);
       }
