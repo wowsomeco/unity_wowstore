@@ -32,7 +32,9 @@ namespace Wowsome {
         m_androidHelper.CallMethod("startPurchase", productId);
       }
 
-      public void RestorePurchase() { }
+      public void RestorePurchase() {
+        m_androidHelper.CallMethod("restorePurchase", null);
+      }
       #endregion
     }
   }
