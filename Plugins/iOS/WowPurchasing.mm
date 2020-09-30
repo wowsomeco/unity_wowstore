@@ -167,9 +167,11 @@ NSMutableDictionary* m_productMap;
 
 - (void)startPurchase:(NSString*)sku
 {
-    SKProduct* product = m_productMap[sku];
-    SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
-    [[SKPaymentQueue defaultQueue] addPayment:payment];
+    if (m_productMap && [m_productMap objectForKey:sku] != nil) {
+        SKProduct* product = m_productMap[sku];
+        SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
+        [[SKPaymentQueue defaultQueue] addPayment:payment];
+    }
 }
 
 - (void)restorePurchases
