@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿#if UNITY_IPHONE || UNITY_IOS
+using System.IO;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
@@ -28,4 +29,4 @@ namespace Wowsome {
     }
   }
 }
-
+#endif
