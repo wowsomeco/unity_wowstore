@@ -16,7 +16,7 @@ namespace Wowsome {
 #endif
 
       #region IStoreController
-      public void InitStore(StoreProvider provider, List<Product> products) {
+      public void InitStore(List<Product> products) {
 #if UNITY_IOS && !UNITY_EDITOR
         AppStore_requestProducts(products.Map(x => x.Sku).ToArray(), products.Count);
 #endif

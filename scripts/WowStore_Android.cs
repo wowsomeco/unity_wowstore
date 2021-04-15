@@ -19,11 +19,11 @@ namespace Wowsome {
       AndroidHelper m_androidHelper = null;
 
       #region IStoreController
-      public void InitStore(StoreProvider provider, List<Product> products) {
+      public void InitStore(List<Product> products) {
         // for now it's either google or amazon
         // refactor this later accordingly should there be more impl for another stores e.g. samsung, etc.        
         m_androidHelper = new AndroidHelper();
-        m_androidHelper.CallMethod("initStore", provider == StoreProvider.Google ? "google" : "amazon");
+        m_androidHelper.CallMethod("initStore", AppSettings.AndroidPlatform == AndroidPlatform.Google ? "google" : "amazon");
         string[] prodArray = products.Map(x => x.Sku).ToArray();
         m_androidHelper.CallMethod("requestProducts", (object)prodArray);
       }
