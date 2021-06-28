@@ -7,15 +7,12 @@ namespace Wowsome.Store {
   /// </summary>
   [Serializable]
   public class Product {
-    /// <summary>
-    /// Product SKU / Id
-    /// TODO: might want to revamp this so that sku can vary accross platforms
-    /// Right now it assumes that sku for each product is the same accross different stores
-    /// </summary>
-    public string Sku;
+    public string skuIos;
+    public string skuGoogle;
+    public string skuAmazon;
 
     public Product(string sku) {
-      Sku = sku;
+      skuIos = skuGoogle = skuAmazon = sku;
     }
   }
 
