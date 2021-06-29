@@ -7,9 +7,18 @@ namespace Wowsome.Store {
   /// </summary>
   [Serializable]
   public class Product {
+    public string Sku {
+      get {
+        var p = new PlatformBasedString(skuIos, skuGoogle, skuAmazon);
+        return p.Get();
+      }
+    }
+
     public string skuIos;
     public string skuGoogle;
     public string skuAmazon;
+
+    public Product() { }
 
     public Product(string sku) {
       skuIos = skuGoogle = skuAmazon = sku;
