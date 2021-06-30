@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Wowsome.Store {
@@ -21,6 +22,7 @@ namespace Wowsome.Store {
     public InitFailEv OnInitFailEv { get; set; }
     public PurchaseFailureEv OnPurchaseFailEv { get; set; }
     public PurchaseSuccessEv OnPurchaseSuccessEv { get; set; }
+    public Action OnStartRestoreEv { get; set; }
     public PurchaseRestoredEv OnPurchaseRestoredEv { get; set; }
     public RestoreFailedEv OnRestoreFailedEv { get; set; }
     #endregion
@@ -43,6 +45,7 @@ namespace Wowsome.Store {
     }
 
     public void RestorePurchase() {
+      OnStartRestoreEv?.Invoke();
       m_controller.RestorePurchase();
     }
 
