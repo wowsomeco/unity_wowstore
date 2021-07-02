@@ -7,9 +7,13 @@ namespace Wowsome.Store {
   /// The store Gameobject.
   /// Inherit this class and call InitStore(List<Product> prods)
   /// 
-  /// Attach it to a Gameobject and name it to 'WowStore'
-  /// it wont work unless you name it that way since
-  /// internally, all the native code for both android and ios will try to call the gameobject with name 'WowStore'
+  /// Attach it to a Gameobject and name it as 'WowStore'
+  /// 
+  /// it wont work if: 
+  /// 1. The name of the gameObject where you attach this script to is not 'WowStore'
+  /// 2. The gameObject is inactive
+  ///   
+  /// /// internally, all the native code for both android and ios will try to call the gameobject with name 'WowStore'
   /// via UnitySendMessage()
   /// </summary>
   public class WowStore : MonoBehaviour {
